@@ -1,0 +1,46 @@
+<h2>Thêm Sách Mới</h2>
+{{#if error}}<p class="error">{{error}}</p>{{/if}}
+{{#if success}}<p class="success">{{success}}</p>{{/if}}
+
+<form action="/books" method="POST">
+    <div>
+        <label>Mã sách (Bắt buộc bắt đầu bằng <strong>{{studentPrefix}}</strong>):</label><br>
+        <input type="text" name="bookCode" placeholder="Ví dụ: {{studentPrefix}}-01" required>
+    </div>
+    <div>
+        <label>Tên sách:</label><br>
+        <input type="text" name="title" required>
+    </div>
+    <div>
+        <label>Giá gốc (VNĐ):</label><br>
+        <input type="number" name="basePrice" required>
+    </div>
+    <br>
+    <button type="submit">Lưu Sách</button>
+</form>
+
+<hr>
+
+<h2>Danh Sách Sách (Truy vấn qua luồng Read)</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Mã Sách</th>
+            <th>Tên Sách</th>
+            <th>Giá Gốc</th>
+            <th>Thuế VAT</th>
+            <th>Giá Sau Thuế</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each books}}
+        <tr>
+            <td>{{this.bookCode}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.basePrice}} đ</td>
+            <td>{{this.vatRate}}%</td>
+            <td><strong>{{this.finalPrice}} đ</strong></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
